@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from '../models/book';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
-  private apiUrl = 'https://bookshop12-ccdfcratbzakddgc.centralindia-01.azurewebsites.net/api/Book'; 
+  private apiUrl = environment.apiUrl; 
 
   constructor(private http: HttpClient) { }
 
