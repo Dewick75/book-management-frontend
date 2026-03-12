@@ -4,17 +4,21 @@ const fs = require('fs');
 const path = require('path');
 
 const generateEnvContent = (envFilePath) => {
-  const envConfig = dotenv.config({ path: envFilePath }).parsed;
+  // Load the file if it exists, but don't fail if it doesn't
+  const envConfig = dotenv.config({ path: envFilePath }).parsed || {};
+  
+  // Vercel injects variables directly into process.env, so we need to check both!
+  const apiUrl = process.env.API_URL || envConfig.API_URL;
 
-  if (!envConfig || !envConfig.API_URL) {
-    console.error(`Error: API_URL not found in ${envFilePath}`);
+  if (!apiUrl) {
+    console.error(`Error: API_URL not found in ${envFilePath} or process.env`);
     return `export const environment = { production: ${envFilePath.includes('.prod')}, API_URL: '' };`;
   }
 
   return `
 export const environment = {
   production: ${envFilePath.includes('.prod')}, // Set production flag based on filename
-  API_URL: '${envConfig.API_URL}'
+  API_URL: '${apiUrl}'
 };
 `;
 };
