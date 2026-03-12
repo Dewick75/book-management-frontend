@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="form-header">
+    <h2>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h2>
+    <a routerLink="/books" class="back-link">← Back to List</a>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="card form-card">
+    <div *ngIf="isLoading" class="loading-overlay">
+      Loading...
+    </div>
+
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Book Title</label>
+        <input type="text" id="title" formControlName="title" placeholder="e.g. The Lord of the Rings" 
+               [ngClass]="{'is-invalid': bookForm.get('title')?.invalid && bookForm.get('title')?.touched}">
+        <div class="invalid-feedback" *ngIf="bookForm.get('title')?.errors?.['required'] && bookForm.get('title')?.touched">
+          Title is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text" id="author" formControlName="author" placeholder="e.g. J.R.R. Tolkien"
+               [ngClass]="{'is-invalid': bookForm.get('author')?.invalid && bookForm.get('author')?.touched}">
+        <div class="invalid-feedback" *ngIf="bookForm.get('author')?.errors?.['required'] && bookForm.get('author')?.touched">
+          Author is required.
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="isbn">ISBN</label>
+          <input type="text" id="isbn" formControlName="isbn" placeholder="e.g. 978-0261102385"
+                 [ngClass]="{'is-invalid': bookForm.get('isbn')?.invalid && bookForm.get('isbn')?.touched}">
+          <div class="invalid-feedback" *ngIf="bookForm.get('isbn')?.errors?.['required'] && bookForm.get('isbn')?.touched">
+            ISBN is required.
+          </div>
+        </div>
+
+        <div class="form-group half-width">
+          <label for="publicationDate">Publication Date</label>
+          <input type="date" id="publicationDate" formControlName="publicationDate"
+                 [ngClass]="{'is-invalid': bookForm.get('publicationDate')?.invalid && bookForm.get('publicationDate')?.touched}">
+          <div class="invalid-feedback" *ngIf="bookForm.get('publicationDate')?.errors?.['required'] && bookForm.get('publicationDate')?.touched">
+            Publication date is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a routerLink="/books" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          {{ isEditMode ? 'Update Book' : 'Save Book' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

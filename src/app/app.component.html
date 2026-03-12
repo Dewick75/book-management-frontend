@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <a routerLink="/books" class="brand">📚 Enhanzer Library</a>
+    <div class="nav-links">
+      <a routerLink="/books" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Books List</a>
+      <a routerLink="/books/add" routerLinkActive="active" class="btn-nav">+ Add Book</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

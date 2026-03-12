@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>Book Directory</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading books...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="grid" *ngIf="!isLoading && !error && books.length > 0">
+    <div class="card" *ngFor="let book of books">
+      <div class="card-content">
+        <h3 class="book-title">{{ book.title }}</h3>
+        <p class="book-author">By {{ book.author }}</p>
+        <p class="book-meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
+        <p class="book-meta"><strong>Published:</strong> {{ book.publicationDate | date:'mediumDate' }}</p>
+      </div>
+      <div class="card-actions">
+        <a [routerLink]="['/books/edit', book.id]" class="btn btn-secondary">Edit</a>
+        <button (click)="deleteBook(book.id, book.title)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !error && books.length === 0" class="empty-state">
+    <p>No books available. Start by adding a new one!</p>
+  </div>
+</div>
