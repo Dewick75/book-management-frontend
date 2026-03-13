@@ -1,59 +1,87 @@
-# BookManagementFrontend
+# Enhanzer Library - Book Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+A premium, modern Angular application designed to manage a digital library of books. This frontend integrates with an ASP.NET backend to provide a seamless CRUD (Create, Read, Update, Delete) experience with a focus on high-end aesthetics and robust data handling.
 
-## Development server
+## 🚀 Key Features
 
-To start a local development server, run:
+- **Dynamic Book Listing**: Real-time view of all available books with loading and error states.
+- **Full CRUD Support**: Add new books, update existing details, and remove books from the system.
+- **Smart Forms**: Validated reactive forms with intuitive feedback and date formatting.
+- **Environment-Driven Configuration**: Secure API endpoint management using `.env` files.
+- **Responsive Premium UI**: Optimized for all devices using a custom, modern CSS design system.
 
+## 🛠 Technology Stack
+
+- **Core**: Angular 19+ (Standalone Components)
+- **State Management**: Reactive RxJS streams
+- **Styling**: SCSS with a custom design system and Google Fonts (Inter)
+- **HTTP Client**: Angular `HttpClient` for REST API consumption
+- **Environment**: Custom Node.js script for `.env` to TypeScript translation
+- **Testing**: Vitest for unit testing
+
+## 📂 Project Architecture
+
+The project follows a feature-based modular structure:
+- `src/app/features/books`: Contains all book-related logic.
+  - `components/book-list`: Displays the grid of books.
+  - `components/book-form`: Unified form for adding and editing books.
+  - `services/book.ts`: Centralized API communication layer.
+  - `models/book.ts`: TypeScript interfaces for data consistency.
+- `src/environments`: Generated environment files for different stages (Dev/Prod).
+
+## 📡 Data Flow & Rendering
+
+### Rendering Lifecycle
+1. **Component Initialization**: On `ngOnInit`, components trigger the `BookService`.
+2. **Asynchronous Fetching**: The service returns an `Observable<Book[]>`.
+3. **Reactive Binding**: Data is bound to the template using the `*ngFor` directive.
+4. **Manual Change Detection**: To ensure UI consistency in asynchronous callbacks, `ChangeDetectorRef` is used to trigger prompt updates.
+
+### Data Interaction (API)
+The `BookService` acts as the bridge to the backend:
+- `GET /api/Book`: Retrieves the full library.
+- `POST /api/Book`: Submits a new book object.
+- `PUT /api/Book/{id}`: Updates an existing entry.
+- `DELETE /api/Book/{id}`: Removes a book.
+
+## ⚙️ Environment Configuration
+
+The project uses a secure `.env` system to manage API URLs without hardcoding them into source control.
+
+1. **`.env` files**: Create `.env` (local) and `.env.prod` (production) in the root.
+2. **Generation Script**: `generate-env.js` reads these files and writes them to `src/environments/environment.ts`.
+3. **Auto-Run**: The generation script runs automatically before `npm start` or `npm build`.
+
+## 💻 Local Setup
+
+1. **Clone and Install**:
+   ```bash
+   npm install
+   ```
+2. **Setup Environtment**:
+   Create a `.env` file in the root:
+   ```env
+   API_URL=https://your-api-endpoint/api/Book
+   ```
+3. **Start Development Server**:
+   ```bash
+   npm run start
+   ```
+   Navigate to `http://localhost:4200/`.
+
+## ☁️ Deployment (Vercel)
+
+When deploying to Vercel:
+1. Add the `API_URL` environment variable in the Vercel Dashboard.
+2. The `generate-env.js` script is configured to automatically pick up the Vercel system variable during the build process.
+
+## 🧪 Testing
+
+The project uses **Vitest** for blistering fast unit tests. To run the suite:
 ```bash
-ng serve
+npm run test
 ```
+The tests are located as `.spec.ts` files alongside their respective components and services.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+*Created for the Pre-Screening Enhanzer Assessment.*
