@@ -12,10 +12,12 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
+  // Get all books
   getAllBooks(): Observable<Book[]> {
     return this.http.get<Book[]>(this.apiUrl);
   }
 
+  // Get book by id
   getBookById(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
   }
