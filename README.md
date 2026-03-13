@@ -1,4 +1,4 @@
-# Library - Book Management System
+# Library - Book Management System Frontend Structure
 
 A premium, modern Angular application designed to manage a digital library of books. This frontend integrates with an ASP.NET backend to provide a seamless CRUD (Create, Read, Update, Delete) experience with a focus on high-end aesthetics and robust data handling.
 
